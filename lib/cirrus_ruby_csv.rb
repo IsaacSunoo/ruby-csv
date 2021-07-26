@@ -1,19 +1,17 @@
 require 'csv'
 
 class CirrusRubyCsv
-  def initialize(csv_path, report, data)
-    @csv_path = csv_path
-    @report = report
+  def initialize(data)
     @data = data
   end
 
-  def create_csv
+  def create_csv_and_report
     CsvCreator.create_csv(@data)
+    ReportCreator.create_report(@data)
   end
 end
 
 module CsvFormatter
-
   def self.format(csv_path = 'data/input.csv')
     data_array = CSV.parse(File.read(csv_path), headers: true)
     data_array.map { |data| coerce_data(data) }
@@ -62,10 +60,30 @@ module CsvFormatter
 end
 
 module CsvCreator
-  def self.create_csv(data)
-    CSV.open('data/output.csv', 'wb') do |csv|
+  def self.create_csv(data, csv_output_path = 'data/output.csv')
+    CSV.open(csv_output_path, 'wb') do |csv|
       csv << data.first.keys
       data.each { |hash| csv << hash.values }
     end
+  end
+end
+
+module ReportCreator
+  def self.create_report(data, report_output_path = 'data/report.txt')
+    report_text = ''
+
+    data.each do |hash|
+      report_text.concat("#{hash['first_name']} #{hash['last_name']} was born on #{hash['dob']}. #{hash['first_name']} is a member of the Planet Fitness and their id number is: #{hash['member_id']}. They joined on #{hash['effective_date']} and their membership expires on #{hash['expiry_date']}. Call them at #{hash['phone_number']} to have a quick chat or con them into re signing up for pizza mondays! \n")
+    end
+
+    File.open(report_output_path, 'w+') { |file| file.write(report_text) }
+  end
+end
+
+module DoIt
+  def self.create_csv_and_report
+    data = CsvFormatter.format
+    ruby_csv = CirrusRubyCsv.new(data)
+    ruby_csv.create_csv_and_report
   end
 end
