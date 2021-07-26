@@ -1,8 +1,8 @@
-# frozen_string_literal: true
-
 require_relative "cirrus_ruby_csv/version"
 
-module CirrusRubyCsv
-  class Error < StandardError; end
-  # Your code goes here...
+class CirrusRubyCsv
+  def initialize(csv_path, report)
+    @csv_path = csv_path
+    @report = report
+  end
 end
