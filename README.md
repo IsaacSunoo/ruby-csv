@@ -24,3 +24,9 @@ Or install it yourself as:
 
 ### Testing
     - run `rspec` in terminal
+
+### Todos
+    - Clean up methods
+    - Make necessary methods private for encapsulation
+    - Add more testing
+    - Refactor to be more versatile

@@ -48,4 +48,41 @@ RSpec.describe CirrusRubyCsv do
     expect(expected_invalid).to eq(result_invalid)
   end
 
+  it 'creates a csv file in data folder' do
+    path = 'data/output.csv'
+
+    data = [{
+              'first_name' => 'Jeff',
+              'last_name' => 'Bezos',
+              'dob' => '3000-10-11',
+              'member_id' => '911',
+              'effective_date' => '2021-07-26',
+              'expiry_date' => '2022-11-17',
+              'phone_number' => '+13035551234'
+            }]
+
+    CsvCreator.create_csv(data)
+    file_exists = File.exist?(path)
+    expect(file_exists).to eq(file_exists)
+    File.delete(path) if file_exists
+  end
+
+  it 'creates a report file in data folder' do
+    path = 'data/report.txt'
+    data = [{
+          'first_name' => 'Jeff',
+          'last_name' => 'Bezos',
+          'dob' => '3000-10-11',
+          'member_id' => '911',
+          'effective_date' => '2021-07-26',
+          'expiry_date' => '2022-11-17',
+          'phone_number' => '+13035551234'
+        }]
+
+    ReportCreator.create_report(data)
+    file_exists = File.exist?(path)
+    expect(file_exists).to eq(file_exists)
+    File.delete(path) if file_exists
+  end
+
 end
