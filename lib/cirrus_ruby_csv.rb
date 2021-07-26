@@ -1,13 +1,14 @@
 require 'csv'
 
 class CirrusRubyCsv
-  def initialize(csv_path, report)
+  def initialize(csv_path, report, data)
     @csv_path = csv_path
     @report = report
+    @data = data
   end
 
   def create_csv
-    CsvFormatter.format(@csv_path)
+    CsvCreator.create_csv(@data)
   end
 end
 
@@ -56,7 +57,15 @@ module CsvFormatter
       return Date.strptime(date_string, '%Y-%m-%d').to_s if date_string.split('-').first.length == 4
       Date.strptime(date_string, '%m-%d-%y').to_s
     end
-
   end
 
+end
+
+module CsvCreator
+  def self.create_csv(data)
+    CSV.open('data/output.csv', 'wb') do |csv|
+      csv << data.first.keys
+      data.each { |hash| csv << hash.values }
+    end
+  end
 end
