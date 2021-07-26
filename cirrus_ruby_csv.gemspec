@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require_relative "lib/cirrus_ruby_csv/version"
 
 Gem::Specification.new do |spec|
@@ -8,7 +6,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Isaac Sunoo"]
   spec.email         = ["isaacsunoo@gmail.com"]
 
-  spec.summary       = "Cirrus "
+  spec.summary       = "Cirrus csv parser"
   spec.homepage      = "https://github.com/IsaacSunoo/ruby-csv"
   spec.license       = "MIT"
   spec.required_ruby_version = ">= 2.4.0"
